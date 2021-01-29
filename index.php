@@ -69,7 +69,7 @@ Se tutto è ok stampare “Accesso riuscito”, altrimenti
       $access = "Accesso negato";
     } elseif (strpos($email, ".") === false || strpos($email, "@") === false) {
       $access = "Accesso negato";
-    } elseif (!is_numeric($email)) {
+    } elseif (!is_numeric($age)) {
       $access = "Accesso negato";
     } else {
       $access = "Accesso riuscito";
