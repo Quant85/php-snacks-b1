@@ -64,12 +64,8 @@ Se tutto è ok stampare “Accesso riuscito”, altrimenti
   $access = "";
 
     if (empty($name) || empty($email) || empty($age)) {
-      $access = "<h3>Ricorda:</h3> <ul> <li> Il nome deve avere più di 3 caratteri;</li> <li>la mail deve contenere un punto (.) e una @</li> <li>la tua età si spera venga espressa in cifre e non in lettere 🤠</li>";
-    } elseif (strlen($name) < 3) {
-      $access = "Accesso negato";
-    } elseif (strpos($email, ".") === false || strpos($email, "@") === false) {
-      $access = "Accesso negato";
-    } elseif (!is_numeric($age)) {
+      $access = "<h3>Compila correttamente - Ricorda:</h3> <ul> <li> Il nome deve avere più di 3 caratteri;</li> <li>la mail deve contenere un punto (.) e una @</li> <li>la tua età si spera venga espressa in cifre e non in lettere 🤠</li>";
+    } elseif ((strlen($name) < 3) || (strpos($email, ".") === false || strpos($email, "@") === false) || (!is_numeric($age)) ) {
       $access = "Accesso negato";
     } else {
       $access = "Accesso riuscito";
@@ -84,7 +80,6 @@ Se tutto è ok stampare “Accesso riuscito”, altrimenti
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snack</title>
-  <style>  .error {color: #FF0000;}  </style>
 </head>
 <body>
     <h1> Snack 2 - Validatore Form PHP - Soluzione 1</h1>
