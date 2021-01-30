@@ -64,7 +64,7 @@ Olimpia Milano - Cantù | 55 - 60 -->
     $giornataX[] = $match_iesimo;
   }
 
-  var_dump($giornataX);
+  //var_dump($giornataX);
 
 ?>
 
@@ -143,11 +143,11 @@ Se tutto è ok stampare “Accesso riuscito”, altrimenti
     <h1> Snack 2 - Validatore Form PHP - Soluzione 1</h1>
     <form action="" method="get">
       <label for="name">Inserisci il tuo nome:</label>
-      <input type="text" name="name" id="name" placeholder="Inserisci nome"> <br> <br>
+      <input type="text" name="name" id="name" placeholder="Nando"> <br> <br>
       <label for="age">Inserisci la tua età:</label>
-      <input type="text" name="age" id="age" placeholder="Inserisci età"> <br> <br>
+      <input type="text" name="age" id="age" placeholder="Es. 32"> <br> <br>
       <label for="age">Inserisci la tua email:</label> 
-      <input type="text" name="email" id="email" placeholder="Inserisci email"> <br> <br>
+      <input type="text" name="email" id="email" placeholder="giuffrida@berry.ciao"> <br> <br>
       <input type="submit" value="Aprimi">    
     </form>
     <h2>
