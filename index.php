@@ -11,14 +11,63 @@ Olimpia Milano - Cantù | 55 - 60 -->
 <!-- potremmo inserire una key point e dargli il valore assegnato e richiamarlo, ma si è scelto di integrare il mt_rand() cosi da avere valori random per ciclo e non ripeterli per singolo match -->
 <?php
   $matches= array(
-    ["home_team" => "Olimpia Milano","visitor_team" => "Cantù" ],
-    ["home_team" => "Cremona","visitor_team" => "Virtus Bologna"],
-    ["home_team" => "Trieste","visitor_team" => "Varese"],
-    ["home_team" => "Trento","visitor_team" => "Fortitudo Bologna"],
-    ["home_team" => "Brescia","visitor_team" => "Universo Treviso"],
+    ["homeTeam" => "Olimpia Milano","visitorTeam" => "Cantù" ],
+    ["homeTeam" => "Cremona","visitorTeam" => "Virtus Bologna"],
+    ["homeTeam" => "Trieste","visitorTeam" => "Varese"],
+    ["homeTeam" => "Trento","visitorTeam" => "Fortitudo Bologna"],
+    ["homeTeam" => "Brescia","visitorTeam" => "Universo Treviso"],
   );
 
+  /* Soluzione 2 generazione randomica sia dei punti che dei matches */
+
+  /* Generazione teamRandom */
+  $teams = ["Olimpia Milano","Cantù","Cremona","Virtus Bologna","Trieste","Varese","Trento","Brescia","Fortitudo Bologna","Universo Treviso"];
+  $randomMatchPointHome= mt_rand(0,150);
+  $randomMatchPointVisitor= mt_rand(0,150);
+  $homeTeam=[];
+  $visitorTeam=[];
+
+//generazione random dei setTeams
+  while(count($homeTeam) < count($teams)/2) {
+    $i = array_rand($teams);
+    $team = $teams[$i];
+    #var_dump($team);
+    if (!in_array($team,$homeTeam)) {
+      $homeTeam[] = $team;
+    }
+    #var_dump($homeTeam);
+  };
+
+  while (count($visitorTeam) < count($teams) / 2) {
+    $team = $teams[array_rand($teams)];
+    if (!in_array($team, $homeTeam) && !in_array($team,$visitorTeam)) {$visitorTeam[] = $team;};
+  };
+  #var_dump($visitorTeam);
+
+  class match
+  {
+    public $homeTeam;
+    public $visitorTeam;
+    public $homePoits;
+    public $visitorPoits;
+    //public mi permette di accedere alla risorsa esternamente 
+    public function __construct($team1,$team2,$poits1,$poits2){
+      $this->homeTeam = $team1;
+      $this->visitorTeam = $team2;
+      $this->homePoits = $poits1;
+      $this->visitorPoits = $poits2;
+    }
+  };
+
+  for ($a=0; $a < (count($homeTeam)+count($visitorTeam))/2; $a++) {
+    $match_iesimo = new match($homeTeam[$a],$visitorTeam[$a],$randomMatchPointHome,$randomMatchPointVisitor);
+    $giornataX[] = $match_iesimo;
+  }
+
+  var_dump($giornataX);
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -30,15 +79,24 @@ Olimpia Milano - Cantù | 55 - 60 -->
 </head>
 <body>
   <h1>🏀 Risultati LBA 🏀</h1>
-  <h2>🏆 3° Giornata - Andata 🏆 </h2>
+  <h2>🏆 2° Giornata - Andata 🏆 </h2>
   <ul>
     <?php
-
-    
       //dichiaro le variabili direttamente nel ciclo for $i e $size
       for ($i = 0, $size = count($matches); $i < $size; ++$i){
         $match = $matches[$i];
-        echo  "<li>".$match["home_team"] ." - " .$match["visitor_team"] ." | " .$match_point_home = mt_rand(0,150) ." - ". $match_point_visitor = mt_rand(0,150) ."</li>";
+        echo  "<li>".$match["homeTeam"] ." - " .$match["visitorTeam"] ." | " .$matchPointHome = mt_rand(0,150) ." - ". $matchPointVisitor = mt_rand(0,150) ."</li>";
+      }
+    ?>  
+  </ul>
+  <br>
+  <h2>🏆 3° Giornata - Andata 🏆 </h2>
+  <ul>
+    <?php
+      //dichiaro le variabili direttamente nel ciclo for $i e $size
+      for ($i = 0, $size = count($giornataX); $i < $size; ++$i){
+        $match = $giornataX[$i];
+        echo  "<li>".$match->homeTeam ." - " .$match->visitorTeam ." | " .$match->homePoits ." - ". $match->visitorPoits ."</li>";
       }
     ?>  
   </ul>
@@ -90,12 +148,10 @@ Se tutto è ok stampare “Accesso riuscito”, altrimenti
       <input type="text" name="age" id="age" placeholder="Inserisci età"> <br> <br>
       <label for="age">Inserisci la tua email:</label> 
       <input type="text" name="email" id="email" placeholder="Inserisci email"> <br> <br>
-      <input type="submit" value="Login">    
+      <input type="submit" value="Aprimi">    
     </form>
     <h2>
-      <?php 
-      echo $access;
-      ?>
+      <?php echo $access;?>
     </h2>
   </ul>
 </body>
